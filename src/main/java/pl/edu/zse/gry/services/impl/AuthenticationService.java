@@ -32,4 +32,16 @@ public class AuthenticationService implements IAuthenticationService {
             this.sessionObject.setUser(userBox.get());
         }
     }
+
+    @Override
+    public void register(String login, String password) {
+        User user = new User();
+        user.setLogin(login);
+        user.setPass(DigestUtils.md5Hex(password));
+        user.setPrivileges(User.Privileges.USER);
+
+        this.userDAO.persistUser(user);
+
+        this.sessionObject.setUser(user);
+    }
 }

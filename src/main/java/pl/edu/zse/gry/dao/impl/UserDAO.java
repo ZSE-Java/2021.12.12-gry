@@ -2,6 +2,7 @@ package pl.edu.zse.gry.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,5 +33,21 @@ public class UserDAO implements IUserDAO {
             return Optional.empty();
         }
 
+    }
+
+    @Override
+    public void persistUser(User user) {
+        Transaction tx = null;
+        try {
+            Session session = this.sessionFactory.openSession();
+            tx = session.beginTransaction();
+            session.save(user);
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            if(tx != null) {
+                tx.rollback();
+            }
+        }
     }
 }

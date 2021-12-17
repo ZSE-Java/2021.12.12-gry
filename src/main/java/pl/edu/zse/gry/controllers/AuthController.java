@@ -35,4 +35,28 @@ public class AuthController {
             return "redirect:/login";
         }
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register() {
+        return "register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@RequestParam String login,
+                           @RequestParam String password,
+                           @RequestParam String password2) {
+        if(password.equals(password2)) {
+            this.authenticationService.register(login, password);
+            return "redirect:/main";
+        } else {
+            return "redirect:/register";
+        }
+
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout() {
+        this.sessionObject.setUser(null);
+        return "redirect:/main";
+    }
 }

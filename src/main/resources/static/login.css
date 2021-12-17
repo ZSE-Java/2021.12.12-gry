@@ -36,3 +36,10 @@
     border: 1px solid #af0184;
     color: #af0184;
 }
+
+#register-button {
+    display: block;
+    margin: 10px auto;
+    width: 100px;
+    text-align: center;
+}
