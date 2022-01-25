@@ -15,7 +15,6 @@
         <div th:text="${game.title}" class="title"></div>
         <div th:text="${game.price}" class="price"></div>
         <div th:text="'Dostępnych: ' + ${game.available}" class="available"></div>
-        <a th:if="${user != null}" th:href="@{/cart/add/{id}(id=${game.id})}" class="add-button">Dodaj do koszyka</a>
     </div>
 </div>
 </body>

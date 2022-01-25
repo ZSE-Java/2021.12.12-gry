@@ -29,6 +29,7 @@ public class GameController {
     public String games(Model model) {
         model.addAttribute("consoles",
                 this.gameService.getConsoleList());
+        model.addAttribute("user", this.sessionObject.getUser());
         return "consoles";
     }
 
@@ -36,6 +37,7 @@ public class GameController {
     public String listGames(@PathVariable Game.Console console, Model model) {
         List<Game> games = this.gameService.getGamesByConsole(console);
         model.addAttribute("games", games);
+        model.addAttribute("user", this.sessionObject.getUser());
         return "games";
     }
 

@@ -13,6 +13,7 @@
 <div th:fragment="menu" class="menu">
     <a href="/main">Main</a>
     <a href="/games">Gry</a>
+    <a href="/cart" th:if="${user != null}">Koszyk</a>
     <a href="/games/add" th:if="${user?.privileges?.name() == 'ADMIN'}">Dodaj grę</a>
     <a href="/login" th:if="${user == null}">Zaloguj</a>
     <a href="/logout" th:if="${user != null}">Wyloguj</a>

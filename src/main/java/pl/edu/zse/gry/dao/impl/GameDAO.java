@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 import pl.edu.zse.gry.dao.IGameDAO;
 import pl.edu.zse.gry.model.Game;
 
+import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class GameDAO implements IGameDAO {
@@ -54,6 +56,21 @@ public class GameDAO implements IGameDAO {
             if(tx != null) {
                 tx.rollback();
             }
+        }
+    }
+
+    @Override
+    public Optional<Game> getGameById(int id) {
+        Session session = this.sessionFactory.openSession();
+        Query<Game> query = session.createQuery("FROM pl.edu.zse.gry.model.Game WHERE id = :id");
+        query.setParameter("id", id);
+        try {
+            Game game = query.getSingleResult();
+            session.close();
+            return Optional.of(game);
+        } catch (NoResultException e) {
+            session.close();
+            return Optional.empty();
         }
     }
 }

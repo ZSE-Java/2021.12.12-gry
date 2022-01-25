@@ -24,4 +24,10 @@ public class CommonController {
         model.addAttribute("user", this.sessionObject.getUser());
         return "main";
     }
+
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    public String contact(Model model) {
+        model.addAttribute("user", this.sessionObject.getUser());
+        return "contact";
+    }
 }
